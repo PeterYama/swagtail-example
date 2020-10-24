@@ -5,6 +5,7 @@ from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
+from django.views.decorators.csrf import csrf_exempt
 from . import blocks
 
 class HomePage(Page):
@@ -20,7 +21,9 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         StreamFieldPanel('content', classname="full"),
     ]
-
+ 
+#  removing the security for testing purposes
+@csrf_exempt 
 def template_specifications(request):
     if request.method == "POST":
         print( 'JSON obj: "%s"' % request.body)
