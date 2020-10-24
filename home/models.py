@@ -3,6 +3,8 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
+from django.http import HttpResponse
+from django.template.response import TemplateResponse
 from . import blocks
 
 class HomePage(Page):
@@ -18,3 +20,9 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         StreamFieldPanel('content', classname="full"),
     ]
+
+def template_specifications(request):
+    if request.method == "POST":
+        print( 'JSON obj: "%s"' % request.body)
+    return HttpResponse(request.body)
+    # can return a template using TemplateResponse
