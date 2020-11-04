@@ -12,42 +12,47 @@ from modelcluster.fields import ParentalKey
 from . import blocks
 from django.shortcuts import render
 
+
 class HomePage(Page):
     intro = RichTextField(blank=True)
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full")
-    ]
+    content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
+
 
 class AdeviPage(Page):
     author = models.CharField(max_length=255, null=True, blank=True)
     date = models.DateField("Post date", null=True, blank=True)
     body = models.CharField(max_length=255, default="default_config")
 
-    content = StreamField([
-        ("title_and_text", blocks.PageBlock(null=True, blank=True)),
-        ('user', blocks.UserBlock(null=True, blank=True, icon='user')),
-    ])
-    
+    content = StreamField(
+        [
+            ("title_and_text", blocks.PageBlock(null=True, blank=True)),
+            ("user", blocks.UserBlock(null=True, blank=True, icon="user")),
+        ]
+    )
+
     content_panels = Page.content_panels + [
-        StreamFieldPanel('content', classname="full"),
+        StreamFieldPanel("content", classname="full"),
     ]
 
 
 class AdeviGalleryImage(Orderable):
-    page = ParentalKey(AdeviPage, on_delete=models.CASCADE, related_name='gallery_images')
+    page = ParentalKey(
+        AdeviPage, on_delete=models.CASCADE, related_name="gallery_images"
+    )
     image = models.ForeignKey(
-        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
     )
     caption = models.CharField(blank=True, max_length=250)
     panels = [
-        ImageChooserPanel('image'),
-        FieldPanel('caption'),
+        ImageChooserPanel("image"),
+        FieldPanel("caption"),
     ]
- 
+
+
 #  removing the security for testing purposes
-@csrf_exempt 
+@csrf_exempt
 def template_specifications(request):
     if request.methoda == "POST":
-        print( 'JSON obj: "%s"' % request.body)
+        print('JSON obj: "%s"' % request.body)
     return HttpResponse(request.body)
     # can return a template using TemplateResponse

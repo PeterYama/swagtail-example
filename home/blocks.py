@@ -5,10 +5,11 @@ from wagtail.core.fields import StreamField
 from wagtail.core.blocks import StructValue
 from wagtail.images.blocks import ImageChooserBlock
 
+
 class LinkStructValue(StructValue):
     def url(self):
-        external_url = self.get('external_url')
-        page = self.get('page')
+        external_url = self.get("external_url")
+        page = self.get("page")
         if external_url:
             return external_url
         elif page:
@@ -17,7 +18,8 @@ class LinkStructValue(StructValue):
 
 class PageBlock(blocks.StructBlock):
     """Title and text nothing else"""
-    title = blocks.CharBlock(required=True, help_text='page head title')
+
+    title = blocks.CharBlock(required=True, help_text="page head title")
     content = blocks.TextBlock(required=True, help_text="page description")
 
     class Meta:
@@ -29,11 +31,12 @@ class PageBlock(blocks.StructBlock):
 
 class UserBlock(blocks.StructBlock):
     """User Information Block"""
-    first_name = blocks.CharBlock(required=True, help_text='first name')
-    user_email = blocks.CharBlock(required=True, help_text='user email')
+
+    first_name = blocks.CharBlock(required=True, help_text="first name")
+    user_email = blocks.CharBlock(required=True, help_text="user email")
     surname = blocks.TextBlock(required=True, help_text="Add your bio")
     photo = ImageChooserBlock()
-    role = blocks.CharBlock(required=True, help_text='User Role')
+    role = blocks.CharBlock(required=True, help_text="User Role")
 
     class Meta:
         template = "home/tittle_and_text_block.html"
