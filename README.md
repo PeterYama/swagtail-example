@@ -2,18 +2,15 @@
 
 ### Following Wagtail [Documentation](https://docs.wagtail.io/en/stable/getting_started/tutorial.html "Wagtail")
 
-#### Home Page:
+### Stream Field
 
-![Home Page](https://i.imgur.com/OYQoUWP.jpg)
+Current Stream fields blocks can be found on home/blocks.py including:
+-LinkStructValue that returns the page url
+-Page User
+-User Block 
 
-#### Images Galery:
+Adevi page can be created inherting from Home just as Blog page inherit from Blog Index
 
-![Images Galery](https://i.imgur.com/8CWn7Fa.jpg)
+All Adevi pages created are displayed in the home page.
 
-#### Post List:
-
-![Post List](https://i.imgur.com/b3IMyt5.jpg)
-
-#### Post:
-
-![Post](https://i.imgur.com/AwVCitl.jpg)
+To use, first login to wagtail admin and create a home page, then create a child Adevi page from home.
